@@ -31,7 +31,7 @@ class AuthenticationBloc
         print(Unanthenticated().toString());
       } else {
         print(Authenticated().toString());
-        print(auth.CurrentUser.toString());
+        // print(auth.CurrentUser.toString());
         yield Authenticated();
       }
     }

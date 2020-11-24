@@ -1,47 +1,47 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:firebase_database/ui/firebase_animated_list.dart';
-// import 'package:flutter/material.dart';
-// import 'package:health_plus/Database/DataBaseHelper.dart';
-// import 'package:health_plus/models/Post.dart';
-// import 'package:health_plus/Database/Upvotes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/material.dart';
+import 'package:health_plus/Database/DataBaseHelper.dart';
+import 'package:health_plus/models/Post.dart';
+import 'package:health_plus/Database/Upvotes.dart';
 
-// class SocialMedia extends StatelessWidget {
-//   String text;
-//   static bool newUser = false;
-//   SocialMedia(this.text);
-//   @override
-//   Widget build(BuildContext context) {
-//     return SocialHome();
-//   }
-// }
+class SocialMedia extends StatelessWidget {
+  String text;
+  static bool newUser = false;
+  SocialMedia(this.text);
+  @override
+  Widget build(BuildContext context) {
+    return SocialHome();
+  }
+}
 
-// class SocialHome extends StatefulWidget {
-//   SocialHome();
-//   @override
-//   _SocialHomeState createState() => _SocialHomeState();
-// }
+class SocialHome extends StatefulWidget {
+  SocialHome();
+  @override
+  _SocialHomeState createState() => _SocialHomeState();
+}
 
-// class _SocialHomeState extends State<SocialHome> {
+class _SocialHomeState extends State<SocialHome> {
 //   DataBaseHelper dataBaseHelper;
-//   DatabaseReference userInfoDBRef;
+  DatabaseReference userInfoDBRef;
 
 //   @override
 //   void initState() {
-//     userInfoDBRef = FirebaseDatabase.instance.reference().child("POSTS");
+  // userInfoDBRef = FirebaseDatabase.instance.reference().child("POSTS");
 //     super.initState();
 //   }
 
 //   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: FutureBuilder(
-//         future: userInfoDBRef.once(),
-//         builder: (context, snapshot) => userbuilder(context, snapshot),
-//       ),
-//     );
-//   }
-
+  Widget build(BuildContext context) {
+    return Container();
+    //   child: FutureBuilder(
+    //     future: userInfoDBRef.once(),
+    //     builder: (context, snapshot) => userbuilder(context, snapshot),
+    //   ),
+    // );
+  }
+}
 //   newUserWidget() {
 //     return Container(
 //       height: 0,

@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:meta/meta.dart';
 
-import 'user.dart';
+import 'model/user.dart';
 
 class Authentication_Repo {
   final FirebaseAuth _firebaseAuth;
@@ -94,7 +94,6 @@ class LogInWithEmailFailure implements Exception {
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Login failed';
   }
 }

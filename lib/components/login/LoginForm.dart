@@ -10,6 +10,7 @@ class LoginForm extends StatefulWidget {
   // const LoginForm(AuthenticationBloc bloc, {Key key, this.auth})
   //     : super(key: key);
 
+  // LoginForm();
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => LoginForm(),

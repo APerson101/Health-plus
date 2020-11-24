@@ -2,6 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_plus/authentication/auth_bloc/authentication_bloc.dart';
+import 'package:health_plus/components/routes.dart';
+import 'Chat/addMessage.dart';
+import 'components/PostDetails/DisplayPosts.dart';
 import 'components/login/LoginForm.dart';
 import 'mainApp.dart';
 
@@ -49,7 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/postDetails': (context) => PostDetails(),
+        routeNames.splashscreen: (context) => SplashScreen(),
+        '/GroupChat': (context) => GroupPost(),
+      },
       navigatorKey: _navigatorKey,
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -58,12 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
             if (state is Unanthenticated) {
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => LoginForm()),
+              //     (route) => false);
               _navigator.pushAndRemoveUntil<void>(
                 LoginForm.route(),
                 (route) => false,
               );
             } else if (state is Authenticated) {
-              print('Going home');
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => MainApp()),
+              //     (route) => false);
               _navigator.pushAndRemoveUntil<void>(
                 MainApp.route(),
                 (route) => false,
@@ -73,14 +89,19 @@ class _MyHomePageState extends State<MyHomePage> {
           child: child,
         );
       },
-      onGenerateRoute: (_) => SplashScreen.route(),
+      // onGenerateRoute: RouteNavigation.generatorRoute,
+      initialRoute: routeNames.splashscreen,
+      // onGenerateRoute: (_) => SplashScreen.route(),
     );
   }
 }
 
 class SplashScreen extends StatelessWidget {
+  // SplashScreen();
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => SplashScreen());
+    return MaterialPageRoute<void>(
+      builder: (_) => SplashScreen(),
+    );
   }
 
   @override

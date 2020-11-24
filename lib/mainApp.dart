@@ -1,19 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_plus/HomePages/search.dart';
-import 'package:health_plus/HomePages/socialMedia.dart';
-
-import 'HomePages/Home/Home.dart';
+import 'package:health_plus/components/Tabs/bloc/tabs_bloc.dart';
 import 'HomePages/Profile/profile.dart';
+import 'HomePages/socialMedia.dart';
+import 'components/Home_page/Home.dart';
+import 'components/Home_page/bloc/Page_bloc/bloc.dart';
+import 'components/Tabs/BottomNavBar.dart';
+import 'components/Tabs/bloc/tabs.dart';
 
 class MainApp extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => MainApp());
   }
+  // MainApp();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomePageBloc>(create: (_) => HomePageBloc()),
+        BlocProvider<TabsBloc>(create: (context) => TabsBloc()),
+      ],
       child: BaseApp(),
     );
   }
@@ -35,9 +43,9 @@ class _BaseAppState extends State<BaseApp> {
   @override
   void initState() {
     _controller = TextEditingController();
-    pages.add(Home("HOME"));
+    pages.add(Home());
     // pages.add(SocialMedia("SOCIAL MEDIA"));
-    pages.add(Search("SEARCH"));
+    pages.add(Search());
     pages.add(Profile("PROFILE"));
 
     // appBars.add(homeAppBar());
@@ -120,50 +128,22 @@ class _BaseAppState extends State<BaseApp> {
         )
       ],
     );
-    return Scaffold(
-      // appBar: appBars[currentPage],
-      body: Container(child: pages[currentPage]),
-      bottomNavigationBar: btmNav(),
-    );
-    // drawer: (() {
-    //   if (currentPage == 3) {
-    //     return Drawer(
-    //       child: profileDrawer,
-    //     );
-    //   }
-    //   return null;
-    // }()));
-  }
-
-  Widget btmNav() {
-    return BottomNavigationBar(
-        onTap: _tabTapped,
-        items: [
-          navItemCreator(Icons.home),
-          navItemCreator(Icons.chat),
-          navItemCreator(Icons.search),
-          navItemCreator(Icons.person)
-        ],
-        currentIndex: currentPage,
-        type: BottomNavigationBarType.fixed);
-  }
-
-  BottomNavigationBarItem navItemCreator(IconData icon) {
-    return BottomNavigationBarItem(
-        icon: Icon(
-          icon,
-          color: Colors.grey,
-        ),
-        title: Text(''),
-        activeIcon: Icon(
-          icon,
-          color: Colors.red,
-        ));
-  }
-
-  _tabTapped(int index) {
-    setState(() {
-      currentPage = index;
+    return BlocBuilder<TabsBloc, TabsState>(builder: (context, activeTab) {
+      return Scaffold(
+        // appBar: appBars[currentPage],
+        body: IndexedStack(index: activeTab.index, children: [
+          Home(),
+          Search(),
+          SocialHome(),
+          Profile('Profile Screen'),
+        ]),
+        // body: getPage(activeTab),
+        //iner(child: pages[currentPage]),
+        bottomNavigationBar: BottomNavBar(
+            activeTab: activeTab,
+            selector: (tab) => BlocProvider.of<TabsBloc>(context)
+                .add(TabSelected(selectedTab: tab))),
+      );
     });
   }
 
@@ -335,6 +315,18 @@ class _BaseAppState extends State<BaseApp> {
   profileAppBar() {
     return AppBar(
       title: Text("Profile"),
+    );
+  }
+
+  Widget getPage(TabsState activeTab) {
+    if (activeTab == TabsState.HomePageTab) return Home();
+    if (activeTab == TabsState.NotificationsTab) return SocialHome();
+    if (activeTab == TabsState.ProfilePageTab) return Profile('Profile Screen');
+    if (activeTab == TabsState.SearchPageTab) return Search();
+    return Container(
+      child: Center(
+        child: Text('Unprocessed Error'),
+      ),
     );
   }
 }
