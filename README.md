@@ -1,16 +1,15 @@
 # health_plus
 
-A new Flutter project.
+This is an app that i made while learning the basics of flutter.
 
-## Getting Started
+## Functions
 
-This project is a starting point for a Flutter application.
+The app contains the following modules and fuctions:
 
-A few resources to get you started if this is your first Flutter project:
+User authentication using Google Firebase Authentication System.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Allows users to post and questions to health professionals and schedule video call appointments with them.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Create and join groups with other patients that face the same illness.
+
+
